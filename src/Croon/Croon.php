@@ -4,13 +4,17 @@ namespace Croon;
 
 use Pagon\ChildProcess\ChildProcess;
 use Pagon\EventEmitter;
+use Pagon\Logger;
 
 class Croon extends EventEmitter
 {
     protected $start_time;
     protected $options = array(
+        'source'  => array(),
         'process' => array(),
-        'source'  => array()
+        'log'     => array(
+            'file' => 'croon.log'
+        )
     );
     protected $process;
 
@@ -29,6 +33,7 @@ class Croon extends EventEmitter
         $this->start_time = time();
 
         $this->process = new ChildProcess($this->options['process']);
+        $this->logger = new Logger($this->options['log']);
     }
 
     /**
@@ -37,7 +42,7 @@ class Croon extends EventEmitter
     public function run()
     {
         $this->emit('run');
-        $this->log("croon start.");
+        $this->logger->info("Start...");
 
         $type = ucfirst($this->options['source']['type']);
 
@@ -98,25 +103,18 @@ class Croon extends EventEmitter
      */
     protected function dispatch($command)
     {
-        $this->log(posix_getpid() . ': dispatch "' . $command . '" ' . memory_get_usage());
+        $this->logger->info('execute "%s"', $command);
         $this->emit('execute', $command);
 
         $that = $this;
 
         $this->process->parallel(function () use ($command, $that) {
                 $status = Utils::exec($command, $stdout, $stderr);
+
+                $that->logger->info('finish "%s" with status %d', $command, (int)$status);
+
                 $that->emit('executed', $command, array($status, $stdout, $stderr));
             }
         );
-    }
-
-    /**
-     * Log
-     *
-     * @param $text
-     */
-    public function log($text)
-    {
-        print date('Y-m-d H:i:s') . ' ' . $text . PHP_EOL;
     }
 }
