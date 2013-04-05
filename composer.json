@@ -1,0 +1,22 @@
+{
+  "name": "pagon/croon",
+  "description": "Crontab for PHP",
+  "keywords": ["crontab", "cron", "crond"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Corrie Zhao",
+      "email": "hfcorriez@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.9",
+    "pagon/childprocess": "dev-master",
+    "pagon/eventemitter" : "0.3.1"
+  },
+  "autoload": {
+    "psr-0": {
+      "Croon": "src/"
+    }
+  }
+}
