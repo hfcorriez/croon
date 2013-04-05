@@ -12,7 +12,7 @@
   "require": {
     "php": ">=5.3.9",
     "pagon/childprocess": "dev-master",
-    "pagon/eventemitter" : "0.3.1"
+    "pagon/eventemitter": "*"
   },
   "autoload": {
     "psr-0": {

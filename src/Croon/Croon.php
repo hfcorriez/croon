@@ -3,8 +3,7 @@
 namespace Croon;
 
 use Pagon\ChildProcess\ChildProcess;
-use Pagon\ChildProcess\Process;
-use Pagon\EventEmitter\EventEmitter;
+use Pagon\EventEmitter;
 
 class Croon extends EventEmitter
 {
