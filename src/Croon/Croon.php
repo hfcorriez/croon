@@ -59,7 +59,7 @@ class Croon extends EventEmitter
 
 
         while (true) {
-            $this->logger->debug('Fetch cron list.');
+            $this->logger->debug('Croon...!!!');
             $this->emit('tick');
             // Load tasks every time.
             $tasks = $source->fetch();
