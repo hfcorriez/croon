@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+// Add arguments parse
+$parser = new \Pagon\ArgParser();
+$parser->add('path', array('help' => 'The path of cron list file'));
+$parser->add(array('--log', '-l'), array('help' => 'The file to log', 'default' => 'croon.log'));
+
+// Try to parse the arguments
+if (!$args = $parser->parse()) {
+    print $parser->help();
+    exit;
+}
+
+// Check path to run
+if (!stream_resolve_include_path($args['path'])) {
+    exit('The given path "' . $args['path'] . '" is not exists');
+}
+
+// Create croon object
+$croon = new \Croon\Croon(array(
+    'source' => array(
+        'type' => 'file',
+        'path' => $args['path']
+    ),
+    'log'    => array(
+        'file' => $args['log']
+    )
+));
+
+$croon->run();

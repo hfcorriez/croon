@@ -13,9 +13,11 @@ class File extends Adapter
     {
         clearstatcache();
 
-        if (!is_file($this->options['path'])) throw new \Exception("Non-exist task file \"{$this->options['path']}\"");
+        if (!$path = stream_resolve_include_path($this->options['path'])) {
+            throw new \Exception("Non-exist cron list file \"{$this->options['path']}\"");
+        }
 
-        $tasks = file($this->options['path'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $tasks = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         return $tasks;
     }

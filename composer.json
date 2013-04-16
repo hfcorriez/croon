@@ -13,11 +13,13 @@
     "php": ">=5.3.9",
     "pagon/childprocess": "dev-master",
     "pagon/eventemitter": "*",
-    "pagon/logger": "*"
+    "pagon/logger": "*",
+    "pagon/argparser": "*"
   },
   "autoload": {
     "psr-0": {
       "Croon": "src/"
     }
-  }
+  },
+  "bin": ["bin/croon"]
 }
