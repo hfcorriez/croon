@@ -42,7 +42,7 @@ class Croon extends EventEmitter
     public function run()
     {
         $this->emit('run');
-        $this->logger->info("Start...");
+        $this->logger->info("Start... [Memory: %s]", Utils::convertUnit(memory_get_usage()));
 
         $type = ucfirst($this->options['source']['type']);
 
@@ -59,7 +59,8 @@ class Croon extends EventEmitter
 
 
         while (true) {
-            $this->emit('turn');
+            $this->logger->debug('Fetch cron list.');
+            $this->emit('tick');
             // Load tasks every time.
             $tasks = $source->fetch();
 
@@ -103,7 +104,7 @@ class Croon extends EventEmitter
      */
     protected function dispatch($command)
     {
-        $this->logger->info('execute "%s"', $command);
+        $this->logger->info('Execute (%s)', $command);
         $this->emit('execute', $command);
 
         $that = $this;
@@ -111,7 +112,7 @@ class Croon extends EventEmitter
         $this->process->parallel(function () use ($command, $that) {
                 $status = Utils::exec($command, $stdout, $stderr);
 
-                $that->logger->info('finish "%s" with status %d', $command, (int)$status);
+                $that->logger->info('Finish (%s)[%d]', $command, (int)$status);
 
                 $that->emit('executed', $command, array($status, $stdout, $stderr));
             }
