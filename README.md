@@ -31,13 +31,13 @@ git clone git://github.com/hfcorriez/php-crontab.git
 Composer
 
 ```
-composer install croon/croon
+composer require croon/croon
 ```
 
 ## 使用
 
 ```
-./bin/croon cron.list -l ~/log/croon.log
+./bin/croon cron.list -l croon.log
 ```
 
 ## License
