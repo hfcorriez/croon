@@ -50,6 +50,9 @@ composer require croon/croon
 
 ```
 * * * * * * ls -l >> /tmp/ls.log
+
+# 兼容系统crontab
+* * * * * pwd >> /tmp/pwd.log
 ```
 
 执行
