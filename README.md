@@ -44,8 +44,24 @@ composer require croon/croon
 
 ## 使用
 
+`cron.list`
+
+```
+* * * * * * ls -l >> /tmp/ls.log
+```
+
+执行
+
 ```
 ./bin/croon cron.list -l croon.log
+```
+
+日志
+
+```
+[2013-04-20 14:07:01] 27a6c9 -  debug   - Croon...!!!
+[2013-04-20 14:07:01] 27a6c9 -   info   - Execute (ls >> /tmp/ls.log)
+[2013-04-20 14:07:01] 27a6c9 -   info   - Finish (ls >> /tmp/ls.log)[0]
 ```
 
 ## License
