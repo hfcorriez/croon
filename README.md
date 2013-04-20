@@ -8,7 +8,7 @@ Croon是一个PHP版本的CronTab实现
 
 - 兼容CronTab语法
 - 精确到秒级控制
-- PSR标准
+- [PSR标准](https://github.com/hfcorriez/fig-standards)
 - 支持事件绑定
 - 支持日志
 
@@ -44,6 +44,8 @@ composer require croon/croon
 
 ## 使用
 
+### 基本用法
+
 `cron.list`
 
 ```
@@ -62,6 +64,35 @@ composer require croon/croon
 [2013-04-20 14:07:01] 27a6c9 -  debug   - Croon...!!!
 [2013-04-20 14:07:01] 27a6c9 -   info   - Execute (ls >> /tmp/ls.log)
 [2013-04-20 14:07:01] 27a6c9 -   info   - Finish (ls >> /tmp/ls.log)[0]
+```
+
+### 高级用法
+
+`bootstrap.php`
+
+```php
+<?php
+
+// 绑定启动事件
+$croon->on('run', function() use($croon) {
+    // 注入db
+    $croon->db = new \PDO('mysql://localhost:3306;dbname=reports');
+});
+
+// 绑定执行事件
+$croon->on('executed', function ($command, $output) use ($croon) {
+    // 记录执行结果
+    $croon->db->exec(sprintf(
+        'INSERT INTO cron(command, status, stdout, stderr, create_time) VALUES ("%s", "%s", "%s", "%s", "%s")',
+        $command, $output[0], $output[1], $output[2], date('Y-m-d H:i:s'))
+    );
+});
+```
+
+执行
+
+```
+./bin/croon cron.list -l croon.log -b bootstrap.php
 ```
 
 ## License

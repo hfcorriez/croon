@@ -7,6 +7,7 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 $parser = new \Pagon\ArgParser();
 $parser->add('path', array('help' => 'The path of cron list file'));
 $parser->add(array('--log', '-l'), array('help' => 'The file to log', 'default' => 'croon.log'));
+$parser->add(array('--boot', '-b'), array('help' => 'The file to bootstrap'));
 
 // Try to parse the arguments
 if (!$args = $parser->parse()) {
@@ -15,19 +16,26 @@ if (!$args = $parser->parse()) {
 }
 
 // Check path to run
-if (!stream_resolve_include_path($args['path'])) {
+if ((!$path = realpath($args['path'])) || !is_file($path)) {
     exit('The given path "' . $args['path'] . '" is not exists');
+}
+
+// Check path to bootstrap
+if ($args['boot'] && ((!$boot = realpath($args['boot'])) || !is_file($boot))) {
+    exit('The given bootstrap file "' . $args['boot'] . '" is not exists');
 }
 
 // Create croon object
 $croon = new \Croon\Croon(array(
     'source' => array(
         'type' => 'file',
-        'path' => $args['path']
+        'path' => $path
     ),
     'log'    => array(
         'file' => $args['log']
     )
 ));
+
+!empty($boot) && include($boot);
 
 $croon->run();
