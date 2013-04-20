@@ -42,7 +42,7 @@ class Croon extends EventEmitter
     public function run()
     {
         $this->emit('run');
-        $this->logger->info("Start... [Memory: %s]", Utils::convertUnit(memory_get_usage()));
+        $this->logger->info("Start! (memory: %s)", Utils::convertUnit(memory_get_usage()));
 
         $type = ucfirst($this->options['source']['type']);
 
@@ -59,7 +59,7 @@ class Croon extends EventEmitter
 
 
         while (true) {
-            $this->logger->debug('Croon...!!!');
+            $this->logger->info('Croon...!!! (memory: %s)', Utils::convertUnit(memory_get_usage()));
             $this->emit('tick');
             // Load tasks every time.
             $tasks = $source->fetch();
