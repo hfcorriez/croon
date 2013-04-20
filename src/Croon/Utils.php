@@ -18,7 +18,12 @@ class Utils
         if ($line == '' || $line{0} == '#') return false;
 
         // check format
-        if (!preg_match('/^(((\*|\d+|\d+\-\d+)(\/\d+)? |((\*|\d+|\d+\-\d+)(\/\d+)?,)+(\*|\d+|\d+\-\d+)(\/\d+)? ){6})(.*)$/', $line, $match)) return false;
+        if (!preg_match('/^(((\*|\d+|\d+\-\d+)(\/\d+)? |((\*|\d+|\d+\-\d+)(\/\d+)?,)+(\*|\d+|\d+\-\d+)(\/\d+)? ){5,6})(.*)$/', $line, $match)) return false;
+
+        // Make compatible with system crontab
+        if (substr_count(trim($match[1]), ' ') === 4) {
+            $match[1] = '0 ' . $match[1];
+        }
 
         return array($match[1], $match[10]);
     }
