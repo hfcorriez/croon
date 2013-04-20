@@ -46,7 +46,7 @@ composer require croon/croon
 
 ### 基本用法
 
-`cron.list`
+`croon.list`
 
 ```
 * * * * * * ls -l >> /tmp/ls.log
@@ -55,7 +55,7 @@ composer require croon/croon
 执行
 
 ```
-./bin/croon cron.list -l croon.log
+./bin/croon croon.list -l croon.log
 ```
 
 `croon.log`
@@ -92,7 +92,7 @@ $croon->on('executed', function ($command, $output) use ($croon) {
 执行
 
 ```
-./bin/croon cron.list -l croon.log -b bootstrap.php
+./bin/croon croon.list -l croon.log -b bootstrap.php
 ```
 
 ## License
