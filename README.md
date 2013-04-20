@@ -17,11 +17,14 @@ Croon是一个PHP版本的CronTab实现
 - PHP 5.3.9+
 - ext-pcntl
 - ext-posix
+- [Composer](http://getcomposer.org)
+
+库依赖（使用composer安装）
+
 - [pagon/childprocess](https://github.com/hfcorriez/php-childprocess)
 - [pagon/eventemitter](https://github.com/hfcorriez/php-eventemitter)
 - [pagon/logger](https://github.com/pagon/logger)
 - [pagon/argparser](https://github.com/hfcorriez/php-argparser)
-- [Composer](http://getcomposer.org)
 
 ## 安装
 
