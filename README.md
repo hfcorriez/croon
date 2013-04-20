@@ -21,6 +21,7 @@ Croon是一个PHP版本的CronTab实现
 - [pagon/eventemitter](https://github.com/hfcorriez/php-eventemitter)
 - [pagon/logger](https://github.com/pagon/logger)
 - [pagon/argparser](https://github.com/hfcorriez/php-argparser)
+- [Composer](http://getcomposer.org)
 
 ## 安装
 
@@ -28,6 +29,8 @@ Git:
 
 ```
 git clone git://github.com/hfcorriez/croon.git
+cd croon
+composer install
 ```
 
 Composer
