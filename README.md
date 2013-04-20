@@ -56,7 +56,7 @@ composer require croon/croon
 ./bin/croon cron.list -l croon.log
 ```
 
-日志
+`croon.log`
 
 ```
 [2013-04-20 14:07:01] 27a6c9 -  debug   - Croon...!!!
