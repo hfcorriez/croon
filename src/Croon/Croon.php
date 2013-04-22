@@ -8,6 +8,7 @@ use Pagon\Logger;
 
 class Croon extends EventEmitter
 {
+    protected $is_run = false;
     protected $start_time;
     protected $options = array(
         'source'  => array(),
@@ -41,25 +42,28 @@ class Croon extends EventEmitter
      */
     public function run()
     {
+        if ($this->is_run) {
+            throw new \RuntimeException("Already running!");
+        }
+
+        $this->is_run = true;
         $this->emit('run');
+
         $this->logger->info("Start! (memory: %s)", Utils::convertUnit(memory_get_usage()));
 
         $type = ucfirst($this->options['source']['type']);
 
-        $try_type = false;
-        if (!class_exists($type)
-            && ($try_type = __NAMESPACE__ . "\\Adapter\\" . $type)
-            && !class_exists($try_type)
+        if (!class_exists($try_type = __NAMESPACE__ . "\\Adapter\\" . $type)
+            && !class_exists($try_type = $type)
         ) {
-            throw new \RuntimeException('Unknown adapter type of "' . $type . '"');
+            throw new \RuntimeException('Unknown adapter type of "' . $try_type . '"');
         }
 
-        if ($try_type) $type = $try_type;
-        $source = new $type($this->options['source']);
-
+        $source = new $try_type($this->options['source']);
 
         while (true) {
             $this->logger->info('Croon...!!! (memory: %s)', Utils::convertUnit(memory_get_usage()));
+
             $this->emit('tick');
             // Load tasks every time.
             $tasks = $source->fetch();
