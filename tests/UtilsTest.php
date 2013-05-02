@@ -72,8 +72,8 @@ class UtilsTest extends PHPUnit_Framework_TestCase
 
     public function testExec()
     {
-        chdir(__DIR__);
+        $dir = getcwd();
         Utils::exec('pwd', $stdout, $stderr);
-        $this->assertEquals(__DIR__, trim($stdout));
+        $this->assertEquals($dir, trim($stdout));
     }
 }
