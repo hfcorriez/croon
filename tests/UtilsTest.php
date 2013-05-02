@@ -63,4 +63,17 @@ class UtilsTest extends PHPUnit_Framework_TestCase
         $ret = Utils::checkIndexRange(5, 8);
         $this->assertFalse($ret);
     }
+
+    public function testConvertUnit()
+    {
+        $this->assertEquals('1 kb', Utils::convertUnit(1024));
+        $this->assertEquals('1 kb', Utils::convertUnit(1025));
+    }
+
+    public function testExec()
+    {
+        chdir(__DIR__);
+        Utils::exec('pwd', $stdout, $stderr);
+        $this->assertEquals(__DIR__, trim($stdout));
+    }
 }
