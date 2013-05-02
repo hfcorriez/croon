@@ -1,6 +1,4 @@
-## 介绍
-
-[![Build Status](https://travis-ci.org/hfcorriez/croon.png?branch=master)](https://travis-ci.org/hfcorriez/croon)
+## Croon [![Build Status](https://travis-ci.org/hfcorriez/croon.png?branch=master)](https://travis-ci.org/hfcorriez/croon)
 
 Croon是一个PHP版本的CronTab实现
 
