@@ -28,6 +28,10 @@ Croon是一个PHP版本的CronTab实现
 
 ## 安装
 
+下载使用：
+
+[Latest Release](https://github.com/hfcorriez/croon/releases/)
+
 Git:
 
 ```
