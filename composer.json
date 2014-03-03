@@ -16,6 +16,9 @@
     "pagon/logger": "*",
     "pagon/argparser": "*"
   },
+  "require-dev": {
+    "pagon/composer-packer": "*"
+  },
   "autoload": {
     "psr-0": {
       "Croon": "src/"
