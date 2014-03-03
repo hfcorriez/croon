@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": ">=5.3.9",
-    "pagon/childprocess": "dev-master",
+    "pagon/childprocess": "0.0.x",
     "pagon/eventemitter": "*",
     "pagon/logger": "*",
     "pagon/argparser": "*"

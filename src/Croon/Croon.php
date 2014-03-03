@@ -2,7 +2,7 @@
 
 namespace Croon;
 
-use Pagon\ChildProcess\ChildProcess;
+use Pagon\ChildProcess;
 use Pagon\EventEmitter;
 use Pagon\Logger;
 
