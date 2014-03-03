@@ -10,7 +10,7 @@
          stopOnFailure="false"
          syntaxCheck="false"
          verbose="false"
-         bootstrap="./vendor/autoload.php"
+         bootstrap="./tests/bootstrap.php"
         >
     <testsuites>
         <testsuite name="Test Suite">
