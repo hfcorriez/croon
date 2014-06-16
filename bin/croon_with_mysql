@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+// Add arguments parse
+$parser = new \Pagon\ArgParser();
+$parser->add(array('--log', '-l'), array('help' => 'The file to log', 'default' => 'croon.log'));
+$parser->add(array('--boot', '-b'), array('help' => 'The file to bootstrap'));
+
+// Try to parse the arguments
+if (!$args = $parser->parse()) {
+    print $parser->help();
+    exit;
+}
+
+// Check path to bootstrap
+if ($args['boot'] && ((!$boot = realpath($args['boot'])) || !is_file($boot))) {
+    exit('The given bootstrap file "' . $args['boot'] . '" is not exists');
+}
+
+// Create croon object
+$croon = new \Croon\Croon(array(
+    'source' => array(
+        'type' => 'pdo',
+        'dsn' => 'mysql:host=host;port=port;dbname=croon',
+        'username' => '',
+        'password' => '',
+        'options' => array(),
+        'table' => 'croon',
+        'fields' => array('time', 'command')
+    ),
+    'log' => array(
+        'file' => $args['log']
+    )
+        ));
+
+!empty($boot) && include($boot);
+
+$croon->run();
