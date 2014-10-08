@@ -14,7 +14,8 @@ class Croon extends EventEmitter
         'source'  => array(),
         'process' => array(),
         'log'     => array(
-            'file' => 'croon.log'
+            'auto_write' => true,
+            'file'       => 'croon.log'
         )
     );
     protected $process;
