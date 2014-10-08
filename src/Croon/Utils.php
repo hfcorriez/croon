@@ -228,7 +228,7 @@ class Utils
                 }
                 break;
             case 5:
-                if ($time > 0 && $time <= 7) {
+                if ($time >= 0 && $time < 7) {
                     return true;
                 }
                 break;
